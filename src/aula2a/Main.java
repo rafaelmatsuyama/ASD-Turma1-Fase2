@@ -3,6 +3,13 @@ package aula2a;
 import java.sql.*;
 
 public class Main {
+    public static void inserirRegistro(Statement statement, String sql) throws SQLException {
+        int rows = statement.executeUpdate(sql);
+
+        if (rows > 0) {
+            System.out.println("Registro inserido!");
+        }
+    }
     public static void main(String[] args) throws SQLException {
         String jdbcURL = "jdbc:h2:mem:test";
         Connection connection = DriverManager.getConnection(jdbcURL);
@@ -17,13 +24,17 @@ public class Main {
         Statement statement = connection.createStatement();
         statement.execute(sql);
         System.out.println("Tabela criada!");
+
         sql = "INSERT INTO carrinho VALUES (1, 'iPhone 14', 21, 7900.00)";
-
-        int rows = statement.executeUpdate(sql);
-
-        if (rows > 0) {
-            System.out.println("Registro inserido!");
-        }
+        Main.inserirRegistro(statement, sql);
+        sql = "INSERT INTO carrinho VALUES (2, 'Carrinho de Bebe', 5, 200.00)";
+        Main.inserirRegistro(statement, sql);
+        sql = "INSERT INTO carrinho VALUES (3, 'JW Black Label', 5, 150.00)";
+        Main.inserirRegistro(statement, sql);
+        sql = "INSERT INTO carrinho VALUES (4, 'Carregador de iPhone', 10, 200.00)";
+        Main.inserirRegistro(statement, sql);
+        sql = "INSERT INTO carrinho VALUES (5, 'Oculos de Sol Rayban', 2, 500.00)";
+        Main.inserirRegistro(statement, sql);
 
         sql = "SELECT * FROM carrinho";
 
